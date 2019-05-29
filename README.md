@@ -9,6 +9,7 @@
 * flutter commands
     - flutter doctor    // will find flutter, android toolchain if set properly and android devices
     - flutter devices   // will list devices
+    - flutter run   // run app :)
 * screenshot with adb
 ```
 adb shell screencap -p /sdcard/screen.png
