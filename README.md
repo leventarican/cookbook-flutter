@@ -10,8 +10,9 @@
     - flutter doctor    // will find flutter, android toolchain if set properly and android devices
     - flutter devices   // will list devices
 * screenshot with adb
-'''
+´´´
 adb shell screencap -p /sdcard/screen.png
 adb pull /sdcard/screen.png .
-'''
-![flutter app power[ps/kw]][screen0.png]
+´´´
+
+![flutter app power[ps/kw]](screen0.png)
