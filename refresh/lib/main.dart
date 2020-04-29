@@ -1,38 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 
-void main() {
-  runApp(MyApp());
-}
+import './pages/start_page.dart';
+import './pages/programminglanguage_page.dart';
 
-class MyApp extends StatelessWidget {
+// based on: https://www.youtube.com/watch?v=jBBl1tYkUnE
+// MaterialApp has home property: will be our start page.
+void main() => runApp(new MaterialApp(
+//  home: new ProgrammingLanguagePage(),
+  home: Example() ,
+));
+
+class Example extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+  State<StatefulWidget> createState() {
+    return ExampleState();
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class ExampleState extends State<Example> {
 
-  final String title;
+  // convention over code: _ is private
+  var _languages = [
+    "go",
+    "dart",
+    "kotlin",
+    "java",
+    "c++",
+    "python",
+    "javascript",
+    "c"
+  ];
+  var _lang = "press button";
 
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
+  action() {
     setState(() {
-      _counter++;
+      _languages.shuffle();
+      _lang = _languages.elementAt(0);
     });
   }
 
@@ -40,27 +44,24 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("Example"),
+        backgroundColor: Colors.lightGreen,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+      body: Container(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(_lang, style: TextStyle(fontSize: 50.0)),
+              RaisedButton(
+                child: Text("action", style: TextStyle(fontSize: 30.0),),
+                color: Colors.lightBlue,
+                onPressed: action,
+              )
+            ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
