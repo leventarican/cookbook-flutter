@@ -7,3 +7,5 @@
 * think in widgets in flutter. everything is a widget. you want an app? then create a class which inherit the widgets class.
 * in flutter you mainly work with stateless (immutable, properties are final) and stateful widgets.
 * with flutter creating an app is like creating a html page. 
+* android kotlin with __jetpack compose__ `@Composable, @Preview, @Model` is going the same way.
+    * https://developer.android.com/jetpack/compose
