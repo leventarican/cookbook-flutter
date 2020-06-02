@@ -41,5 +41,5 @@ adb pull /sdcard/screen.png .
 
 # flutter: windows
 * get flutter SDK
-* set flutter SDK to environment variable PATH: <...>\flutter\bin
-* set android SDK / toolchain to environment variable PATH: <...>\android\sdk\platform-tools
+* set flutter SDK to environment variable PATH: `<...>\flutter\bin`
+* set android SDK / toolchain to environment variable PATH: `<...>\android\sdk\platform-tools`

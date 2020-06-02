@@ -14,12 +14,12 @@ import 'examples/list_view_example.dart';
 import 'template/template.dart';
 
 // hot reload may not work when switching example. thus run always app again.
-//void main() => runApp(ListViewExample());
+void main() => runApp(ListViewExample());
 //void main() => runApp(NavigationExample());
 //void main() => runApp(SimpleExample());
 //void main() => runApp(JsonRestExample());
 //void main() => runApp(Template());
-void main() => runApp(RowColumnExample());
+//void main() => runApp(RowColumnExample());
 
 // #############################################################################
 // # ProgrammingLanguagePage a more sophisticated way
