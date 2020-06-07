@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-//simple example with a button and text
 class SimpleExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -10,6 +9,8 @@ class SimpleExample extends StatelessWidget {
   }
 }
 
+/// demo of setstate. like in React.
+/// the UI is re-build when the state changes with Stateful widgets.
 class ThePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -31,10 +32,11 @@ class TheState extends State<ThePage> {
   ];
   var _lang = "press button";
 
-  action() {
+  _action() {
     setState(() {
-      _languages.shuffle();
-      _lang = _languages.elementAt(0);
+      _languages..shuffle();
+      _lang = _languages.first;
+      debugPrint(_lang);
     });
   }
 
@@ -42,8 +44,10 @@ class TheState extends State<ThePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Example"),
-        backgroundColor: Colors.lightGreen,
+        title: Text('setState example',
+            style: Theme.of(context).textTheme.headline4),
+        backgroundColor: Colors.amber[200],
+        centerTitle: true,
       ),
       body: Container(
         child: Center(
@@ -51,17 +55,18 @@ class TheState extends State<ThePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               // a text, some padding, then a button
-              Text(_lang, style: TextStyle(fontSize: 50.0)),
+              Text(_lang, style: Theme.of(context).textTheme.headline4),
               Padding(
                 padding: EdgeInsets.all(10.0),
               ),
               RaisedButton(
                 child: Text(
                   "action",
-                  style: TextStyle(fontSize: 30.0),
+                  style: Theme.of(context).textTheme.headline4,
                 ),
-                color: Colors.lightBlue,
-                onPressed: action,
+                color: Colors.amber[200],
+                padding: EdgeInsets.all(16.0),
+                onPressed: _action,
               )
             ],
           ),

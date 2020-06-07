@@ -13,23 +13,6 @@ import './pages/programminglanguage_page.dart';
 import 'examples/list_view_example.dart';
 import 'template/template.dart';
 
-// hot reload may not work when switching example. thus run always app again.
-// main() => runApp(Start());
-// void main() => runApp(ListViewExample());
-//void main() => runApp(NavigationExample());
-//void main() => runApp(SimpleExample());
-//void main() => runApp(JsonRestExample());
-//void main() => runApp(Template());
-//void main() => runApp(RowColumnExample());
-
-// #############################################################################
-// # ProgrammingLanguagePage a more sophisticated way
-// based on: https://www.youtube.com/watch?v=jBBl1tYkUnE
-// MaterialApp has home property: will be our start page.
-//main() => runApp(MaterialApp(
-//      home: ProgrammingLanguagePage(),
-//    ));
-
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -82,6 +65,14 @@ class _StartState extends State<Start> {
           MenuButton(
             name: 'row column',
             action: () => clicked(RowColumnExample()),
+          ),
+          MenuButton(
+            name: 'start page',
+            action: () => clicked(StartPage()),
+          ),
+          MenuButton(
+            name: 'programming language',
+            action: () => clicked(ProgrammingLanguagePage()),
           ),
         ]));
   }
