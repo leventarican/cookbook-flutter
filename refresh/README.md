@@ -9,3 +9,8 @@
 * with flutter creating an app is like creating a html page. 
 * android kotlin with __jetpack compose__ `@Composable, @Preview, @Model` is going the same way.
     * https://developer.android.com/jetpack/compose
+
+Screenshot
+-----------
+* take screenshot with: `flutter screenshot`
+![](flutter_01.png)

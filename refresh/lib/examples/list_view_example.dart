@@ -4,19 +4,19 @@ class ListViewExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ThePage(),
+      home: ListViewExamplePage(),
     );
   }
 }
 
-class ThePage extends StatefulWidget {
+class ListViewExamplePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return TheState();
   }
 }
 
-class TheState extends State<ThePage> {
+class TheState extends State<ListViewExamplePage> {
   var _data = ["go", "kotlin", "dart", "cpp", "java", "python", "rust", "c"];
 
   @override
