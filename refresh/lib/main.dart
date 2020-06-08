@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/widgets.dart';
+import 'package:refresh/examples/inherited_widget_example.dart';
 import 'package:refresh/examples/json_rest_example.dart';
 import 'package:refresh/examples/navigation_example.dart';
 import 'package:refresh/examples/row_column_example.dart';
@@ -15,9 +16,7 @@ import 'template/template.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: Colors.amber
-      ),
+      theme: ThemeData(primaryColor: Colors.amber),
       home: Start(),
     ));
 
@@ -74,6 +73,10 @@ class _StartState extends State<Start> {
             name: 'programming language',
             action: () => clicked(ProgrammingLanguagePage()),
           ),
+          MenuButton(
+            name: 'inherited widget',
+            action: () => clicked(InheritedWidgetExample()),
+          ),
         ]));
   }
 }
@@ -90,9 +93,12 @@ class MenuButton extends StatelessWidget {
       padding: EdgeInsets.all(5.0),
       child: MaterialButton(
           color: Theme.of(context).primaryColor,
-          child: Text(name, style: TextStyle(
-            fontSize: 20.0,
-          ),),
+          child: Text(
+            name,
+            style: TextStyle(
+              fontSize: 20.0,
+            ),
+          ),
           onPressed: action),
     );
   }
