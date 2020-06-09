@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:refresh/examples/inherited_widget_example.dart';
 import 'package:refresh/examples/json_rest_example.dart';
+import 'package:refresh/examples/navigation_basic_example.dart';
 import 'package:refresh/examples/navigation_example.dart';
 import 'package:refresh/examples/row_column_example.dart';
 import 'package:refresh/examples/simple_example.dart';
@@ -76,6 +77,10 @@ class _StartState extends State<Start> {
           MenuButton(
             name: 'inherited widget',
             action: () => clicked(InheritedWidgetExample()),
+          ),
+          MenuButton(
+            name: 'navigation basic',
+            action: () => clicked(NavigationBasicExample()),
           ),
         ]));
   }

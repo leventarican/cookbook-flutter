@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 const ABOUT_PAGE = "/About";
 
-//MainPage is a demo of two pages: navigate from one page to another
+/// named routes
+/// demo of two pages: navigate from one page to another
 class NavigationExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -63,6 +64,9 @@ class AboutPage extends StatelessWidget {
               color: Colors.orangeAccent,
             ),
             iconSize: 100.0,
+            onPressed: () {
+              debugPrint('clicked.');
+            },
           ),
           Text("Flutter",
               style: TextStyle(
