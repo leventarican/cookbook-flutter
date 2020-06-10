@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/widgets.dart';
+import 'package:refresh/examples/animation_example.dart';
 import 'package:refresh/examples/inherited_widget_example.dart';
 import 'package:refresh/examples/json_rest_example.dart';
 import 'package:refresh/examples/navigation_basic_example.dart';
 import 'package:refresh/examples/navigation_example.dart';
 import 'package:refresh/examples/row_column_example.dart';
 import 'package:refresh/examples/simple_example.dart';
+import 'package:refresh/examples/stateless_example.dart';
 
 import './pages/start_page.dart';
 import './pages/programminglanguage_page.dart';
@@ -81,6 +83,18 @@ class _StartState extends State<Start> {
           MenuButton(
             name: 'navigation basic',
             action: () => clicked(NavigationBasicExample()),
+          ),
+          MenuButton(
+            name: 'animation',
+            action: () => clicked(AnimationExample()),
+          ),
+          MenuButton(
+            name: 'placeholder0',
+            action: () => clicked(StatelessExample()),
+          ),
+          MenuButton(
+            name: 'placeholder1',
+            action: () => clicked(StatelessExample()),
           ),
         ]));
   }

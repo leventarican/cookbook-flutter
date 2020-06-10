@@ -54,6 +54,9 @@ flutter:
   assets:
     - assets/images/go.png
     - assets/images/kotlin.png
+    - assets/images/bread0.jpg
+    - assets/images/bread1.jpg
+    - assets/images/bread2.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
