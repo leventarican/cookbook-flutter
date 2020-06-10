@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
+
+const _image = 'assets/images/bread0.jpg';
 
 class AnimationExample extends StatefulWidget {
   @override
@@ -15,22 +18,27 @@ class _AnimationExampleState extends State<AnimationExample>
 
     controller = AnimationController(
       lowerBound: 0,
-      upperBound: 400,
-      duration: const Duration(seconds: 10),
+      upperBound: 3,
+      duration: const Duration(seconds: 1),
       vsync: this,
     )
       ..addListener(() {
         setState(() {});
+      })
+      ..addStatusListener((AnimationStatus status) {
+        if (status == AnimationStatus.completed) {
+          debugPrint('animation done.');
+          // controller.repeat();
+          controller.reverse();
+        }
       })
       ..forward();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: controller.value,
-      height: controller.value,
-      child: Image.asset('assets/images/bread2.jpg'),
+    return AnimatedImage(
+      controller: controller,
     );
   }
 
@@ -38,5 +46,26 @@ class _AnimationExampleState extends State<AnimationExample>
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+}
+
+class AnimatedImage extends AnimatedWidget {
+  const AnimatedImage({Key key, AnimationController controller})
+      : super(key: key, listenable: controller);
+
+  Animation<double> get _progress => listenable;
+
+  @override
+  Widget build(BuildContext context) {
+    debugPrint('progress: ${_progress.value}');
+    return Scaffold(
+        body: SizedBox(
+      child: Container(
+        child: Image.asset(_image),
+        height: 100 * _progress.value,
+        width: 100 * _progress.value,
+        margin: EdgeInsets.all(50),
+      ),
+    ));
   }
 }
