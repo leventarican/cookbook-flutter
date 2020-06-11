@@ -58,14 +58,25 @@ class AnimatedImage extends AnimatedWidget {
   @override
   Widget build(BuildContext context) {
     debugPrint('progress: ${_progress.value}');
-    return Scaffold(
-        body: SizedBox(
-      child: Container(
-        child: Image.asset(_image),
-        height: 100 * _progress.value,
-        width: 100 * _progress.value,
-        margin: EdgeInsets.all(50),
-      ),
-    ));
+    // return Scaffold(
+    //     body: SizedBox(
+    //   child: Container(
+    //     child: Image.asset(_image),
+    //     height: 100 * _progress.value,
+    //     width: 100 * _progress.value,
+    //     margin: EdgeInsets.all(50),
+    //   ),
+    // ));
+
+    return Container(
+        color: Colors.amber[50],
+        child: Center(
+            child: Container(
+          color: Colors.blueGrey[300],
+          child: SizedBox(
+            height: 100.0 * _progress.value,
+            width: 50.0,
+          ),
+        )));
   }
 }

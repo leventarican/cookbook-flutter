@@ -30,12 +30,40 @@ class TheState extends State<ListViewExamplePage> {
             itemCount: _data.length,
             itemBuilder: (BuildContext context, int index) {
               return Card(
-                child: Text(_data[index], style: TextStyle(fontSize: 100.0, color: Colors.blueGrey),),
+                child: InkWell(
+                    onTap: () => _selaction(_data[index]),
+                    child: Text(
+                      _data[index],
+                      style: TextStyle(fontSize: 100.0, color: Colors.blueGrey),
+                    )),
                 color: Colors.amberAccent,
                 margin: EdgeInsets.all(8),
                 clipBehavior: Clip.hardEdge,
                 shadowColor: Colors.redAccent,
               );
             }));
+  }
+
+  void _selaction(String data) {
+    debugPrint('tabbed: $data');
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            '$data',
+            style: Theme.of(context).textTheme.headline2,
+          ),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: RaisedButton(
+            child: Text('back'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+      );
+    }));
   }
 }
