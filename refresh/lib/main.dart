@@ -15,6 +15,7 @@ import './pages/start_page.dart';
 import './pages/programminglanguage_page.dart';
 
 import 'examples/list_view_example.dart';
+import 'tabs/tabs_example.dart';
 import 'template/template.dart';
 
 void main() => runApp(MaterialApp(
@@ -89,8 +90,8 @@ class _StartState extends State<Start> {
             action: () => clicked(AnimationExample()),
           ),
           MenuButton(
-            name: 'placeholder0',
-            action: () => clicked(StatelessExample()),
+            name: 'tabs',
+            action: () => clicked(TabsExample()),
           ),
           MenuButton(
             name: 'placeholder1',

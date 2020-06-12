@@ -1,24 +1,16 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter0/tabs/first.dart';
-import 'package:flutter0/tabs/second.dart';
-import 'package:flutter0/tabs/third.dart';
+import 'first.dart';
+import 'second.dart';
+import 'third.dart';
 
-void main() {
-  runApp(MaterialApp(
-    // Title
-      title: "Using Tabs",
-      // Home
-      home: MyHome()));
-}
-
-class MyHome extends StatefulWidget {
+class TabsExample extends StatefulWidget {
   @override
-  MyHomeState createState() => MyHomeState();
+  TabsExampleState createState() => TabsExampleState();
 }
 
 // SingleTickerProviderStateMixin is used for animation
-class MyHomeState extends State<MyHome> with SingleTickerProviderStateMixin {
+class TabsExampleState extends State<TabsExample> with SingleTickerProviderStateMixin {
   /*
    *-------------------- Setup Tabs ------------------*
    */
