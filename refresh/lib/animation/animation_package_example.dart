@@ -28,6 +28,7 @@ class AnimationPackageExample extends StatelessWidget {
           body: ListView(padding: const EdgeInsets.all(8.0), children: <Widget>[
             _OpenContainerWrapper(
               transitionType: ContainerTransitionType.fade,
+              // closedBuilder: when widget is closed, show ExampleCard
               closedBuilder: (BuildContext _, VoidCallback openContainer) {
                 print('closed builder');
                 return _ExampleCard(openContainer: openContainer);
@@ -55,12 +56,13 @@ class _OpenContainerWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return OpenContainer<bool>(
       transitionType: transitionType,
+      // openBuilder: when widget is opened, show DetailPage
       openBuilder: (BuildContext context, VoidCallback _) {
         print('--');
         return _DetailsPage();
       },
       onClosed: onClosed,
-      tappable: false,
+      tappable: true,
       closedBuilder: closedBuilder,
     );
   }
@@ -132,7 +134,6 @@ class _ExampleCard extends StatelessWidget {
 }
 
 class _DetailsPage extends StatelessWidget {
-
   final result = true;
 
   @override
@@ -141,22 +142,18 @@ class _DetailsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Details page'),
         actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.done),
-              onPressed: () => Navigator.pop(context, result),
-              tooltip: 'dummy action',
-            )
+          IconButton(
+            icon: const Icon(Icons.done),
+            onPressed: () => Navigator.pop(context, result),
+            tooltip: 'dummy action',
+          )
         ],
       ),
       body: ListView(
         children: <Widget>[
-          Container(
-            color: Colors.black38,
-            height: 250,
-            child: Expanded(
-              child: Image.asset(
-                'assets/images/bread0.jpg',
-              ),
+          Expanded(
+            child: Image.asset(
+              'assets/images/bread0.jpg',
             ),
           ),
           Padding(
