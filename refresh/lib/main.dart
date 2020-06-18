@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/widgets.dart';
+import 'package:refresh/animation/animation_package_example.dart';
 import 'package:refresh/examples/animation_example.dart';
 import 'package:refresh/examples/inherited_widget_example.dart';
 import 'package:refresh/examples/json_rest_example.dart';
@@ -92,6 +93,14 @@ class _StartState extends State<Start> {
           MenuButton(
             name: 'tabs',
             action: () => clicked(TabsExample()),
+          ),
+          MenuButton(
+            name: 'bread',
+            action: () => clicked(AnimationPackageExample()),
+          ),
+          MenuButton(
+            name: 'placeholder0',
+            action: () => clicked(StatelessExample()),
           ),
           MenuButton(
             name: 'placeholder1',

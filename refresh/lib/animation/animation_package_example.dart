@@ -7,7 +7,12 @@ main(List<String> args) {
   runApp(AnimationPackageExample());
 }
 
-const String _loremIpsumParagraph = 'sample text';
+const String _ingredients = """
+- yeast
+- salt
+- water
+- egg
+""";
 
 class AnimationPackageExample extends StatelessWidget {
   @override
@@ -15,7 +20,17 @@ class AnimationPackageExample extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            title: const Text('Container transform'),
+            centerTitle: true,
+            backgroundColor: Colors.teal.shade200,
+            title: const Text(
+              'Bread',
+              style: TextStyle(
+                color: Colors.white70,
+                fontFamily: 'Handlee',
+                fontWeight: FontWeight.w600,
+                fontSize: 40.0,
+              ),
+            ),
             actions: <Widget>[
               IconButton(
                 icon: const Icon(Icons.settings),
@@ -107,7 +122,7 @@ class _ExampleCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Expanded(child: Image.asset('assets/images/bread1.jpg')),
+          Expanded(child: Image.asset('assets/images/bread0.jpg')),
           const ListTile(
             title: Text('Bread'),
             subtitle: Text('eat it'),
@@ -139,8 +154,11 @@ class _DetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.teal.shade50,
       appBar: AppBar(
-        title: const Text('Details page'),
+        backgroundColor: Colors.teal.shade100,
+        title: const Text('#'),
+        centerTitle: true,
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.done),
@@ -153,7 +171,7 @@ class _DetailsPage extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: Image.asset(
-              'assets/images/bread0.jpg',
+              'assets/images/bread2.jpg',
             ),
           ),
           Padding(
@@ -162,7 +180,7 @@ class _DetailsPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Title',
+                  'Ingredients',
                   style: Theme.of(context).textTheme.headline5.copyWith(
                         color: Colors.black54,
                         fontSize: 30.0,
@@ -170,11 +188,11 @@ class _DetailsPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  _loremIpsumParagraph,
+                  _ingredients,
                   style: Theme.of(context).textTheme.bodyText2.copyWith(
                         color: Colors.black54,
-                        height: 1.5,
-                        fontSize: 16.0,
+                        height: 1.1,
+                        fontSize: 20.0,
                       ),
                 ),
               ],
