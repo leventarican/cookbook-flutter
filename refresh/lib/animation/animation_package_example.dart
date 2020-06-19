@@ -3,9 +3,9 @@ import 'package:animations/animations.dart';
 
 // based on https://pub.dev/packages/animations
 
-main(List<String> args) {
-  runApp(AnimationPackageExample());
-}
+// main(List<String> args) {
+//   runApp(AnimationPackageExample());
+// }
 
 const String _ingredients = """
 - yeast
@@ -46,11 +46,36 @@ class AnimationPackageExample extends StatelessWidget {
               // closedBuilder: when widget is closed, show ExampleCard
               closedBuilder: (BuildContext _, VoidCallback openContainer) {
                 print('closed builder');
-                return _ExampleCard(openContainer: openContainer);
+                return _ExampleCard(
+                    openContainer: openContainer,
+                    image: Image.asset('assets/images/bread0.jpg'));
               },
               onClosed: (b) => print('closed'),
             ),
             const SizedBox(height: 16.0),
+            _OpenContainerWrapper(
+              transitionType: ContainerTransitionType.fade,
+              // closedBuilder: when widget is closed, show ExampleCard
+              closedBuilder: (BuildContext _, VoidCallback openContainer) {
+                print('closed builder');
+                return _ExampleCard(
+                    openContainer: openContainer,
+                    image: Image.asset('assets/images/bread1.jpg'));
+              },
+              onClosed: (b) => print('closed'),
+            ),
+            const SizedBox(height: 16.0),
+            _OpenContainerWrapper(
+              transitionType: ContainerTransitionType.fade,
+              // closedBuilder: when widget is closed, show ExampleCard
+              closedBuilder: (BuildContext _, VoidCallback openContainer) {
+                print('closed builder');
+                return _ExampleCard(
+                    openContainer: openContainer,
+                    image: Image.asset('assets/images/bread2.jpg'));
+              },
+              onClosed: (b) => print('closed'),
+            ),
           ])),
     );
   }
@@ -109,20 +134,27 @@ class _InkWellOverlay extends StatelessWidget {
   }
 }
 
-class _ExampleCard extends StatelessWidget {
-  const _ExampleCard({this.openContainer});
+class _ExampleCard extends StatefulWidget {
+  var image;
+
+  _ExampleCard({this.openContainer, this.image});
 
   final VoidCallback openContainer;
 
   @override
+  __ExampleCardState createState() => __ExampleCardState();
+}
+
+class __ExampleCardState extends State<_ExampleCard> {
+  @override
   Widget build(BuildContext context) {
     return _InkWellOverlay(
-      openContainer: openContainer,
+      openContainer: widget.openContainer,
       height: 300,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Expanded(child: Image.asset('assets/images/bread0.jpg')),
+          Expanded(child: widget.image),
           const ListTile(
             title: Text('Bread'),
             subtitle: Text('eat it'),
@@ -186,7 +218,7 @@ class _DetailsPage extends StatelessWidget {
                         fontSize: 30.0,
                       ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 11),
                 Text(
                   _ingredients,
                   style: Theme.of(context).textTheme.bodyText2.copyWith(
