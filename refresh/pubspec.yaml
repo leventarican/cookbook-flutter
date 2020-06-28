@@ -32,6 +32,9 @@ dependencies:
   # import for http request
   http: any
 
+  # maps example
+  google_maps_flutter: ^0.5.27+3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

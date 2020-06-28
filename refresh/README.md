@@ -11,6 +11,11 @@
 * android kotlin with __jetpack compose__ `@Composable, @Preview, @Model` is going the same way.
     * https://developer.android.com/jetpack/compose
 
+Web
+---
+* add web app support to existing app: `flutter create .`
+* https://flutter.dev/docs/get-started/web
+
 Screenshot
 -----------
 * take screenshot with: `flutter screenshot`

@@ -6,6 +6,7 @@ import 'package:refresh/animation/animation_package_example.dart';
 import 'package:refresh/examples/animation_example.dart';
 import 'package:refresh/examples/inherited_widget_example.dart';
 import 'package:refresh/examples/json_rest_example.dart';
+import 'package:refresh/examples/maps_example.dart';
 import 'package:refresh/examples/navigation_basic_example.dart';
 import 'package:refresh/examples/navigation_example.dart';
 import 'package:refresh/examples/row_column_example.dart';
@@ -99,8 +100,8 @@ class _StartState extends State<Start> {
             action: () => clicked(AnimationPackageExample()),
           ),
           MenuButton(
-            name: 'placeholder0',
-            action: () => clicked(StatelessExample()),
+            name: 'maps',
+            action: () => clicked(MapsExample()),
           ),
           MenuButton(
             name: 'placeholder1',
