@@ -31,7 +31,7 @@ class TheState extends State<ListViewExamplePage> {
             itemBuilder: (BuildContext context, int index) {
               return Card(
                 child: InkWell(
-                    onTap: () => _selaction(_data[index]),
+                    onTap: () => _selection(_data[index]),
                     child: Text(
                       _data[index],
                       style: TextStyle(fontSize: 100.0, color: Colors.blueGrey),
@@ -44,7 +44,7 @@ class TheState extends State<ListViewExamplePage> {
             }));
   }
 
-  void _selaction(String data) {
+  void _selection(String data) {
     debugPrint('tabbed: $data');
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return Scaffold(

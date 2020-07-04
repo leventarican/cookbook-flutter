@@ -6,11 +6,11 @@ import 'package:refresh/animation/animation_package_example.dart';
 import 'package:refresh/examples/animation_example.dart';
 import 'package:refresh/examples/inherited_widget_example.dart';
 import 'package:refresh/examples/json_rest_example.dart';
-import 'package:refresh/examples/maps_example.dart';
 import 'package:refresh/examples/navigation_basic_example.dart';
 import 'package:refresh/examples/navigation_example.dart';
 import 'package:refresh/examples/row_column_example.dart';
 import 'package:refresh/examples/simple_example.dart';
+import 'package:refresh/examples/slivers_example.dart';
 import 'package:refresh/examples/stateless_example.dart';
 
 import './pages/start_page.dart';
@@ -100,8 +100,12 @@ class _StartState extends State<Start> {
             action: () => clicked(AnimationPackageExample()),
           ),
           MenuButton(
-            name: 'maps',
-            action: () => clicked(MapsExample()),
+            name: 'slivers',
+            action: () => clicked(SliversExample()),
+          ),
+          MenuButton(
+            name: 'placeholder1',
+            action: () => clicked(StatelessExample()),
           ),
           MenuButton(
             name: 'placeholder1',
