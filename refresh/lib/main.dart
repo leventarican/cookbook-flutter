@@ -6,6 +6,7 @@ import 'package:refresh/animation/animation_package_example.dart';
 import 'package:refresh/examples/animation_example.dart';
 import 'package:refresh/examples/inherited_widget_example.dart';
 import 'package:refresh/examples/json_rest_example.dart';
+import 'package:refresh/examples/listview_future_example.dart';
 import 'package:refresh/examples/navigation_basic_example.dart';
 import 'package:refresh/examples/navigation_example.dart';
 import 'package:refresh/examples/row_column_example.dart';
@@ -16,7 +17,8 @@ import 'package:refresh/examples/stateless_example.dart';
 import './pages/start_page.dart';
 import './pages/programminglanguage_page.dart';
 
-import 'examples/list_view_example.dart';
+import 'examples/debug.dart';
+import 'examples/listview_example.dart';
 import 'tabs/tabs_example.dart';
 import 'template/template.dart';
 
@@ -104,8 +106,8 @@ class _StartState extends State<Start> {
             action: () => clicked(SliversExample()),
           ),
           MenuButton(
-            name: 'placeholder1',
-            action: () => clicked(StatelessExample()),
+            name: 'future listview',
+            action: () => clicked(Debug()),
           ),
           MenuButton(
             name: 'placeholder1',
