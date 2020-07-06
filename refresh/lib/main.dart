@@ -106,8 +106,12 @@ class _StartState extends State<Start> {
             action: () => clicked(SliversExample()),
           ),
           MenuButton(
-            name: 'future listview',
+            name: 'debug',
             action: () => clicked(Debug()),
+          ),
+          MenuButton(
+            name: 'future listview',
+            action: () => clicked(ListViewFutureExample()),
           ),
           MenuButton(
             name: 'placeholder1',
