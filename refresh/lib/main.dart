@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:refresh/animation/animation_package_example.dart';
 import 'package:refresh/examples/animation_example.dart';
+import 'package:refresh/examples/custom_painter_example.dart';
 import 'package:refresh/examples/grid_exmaple.dart';
 import 'package:refresh/examples/inherited_widget_example.dart';
 import 'package:refresh/examples/json_rest_example.dart';
@@ -117,6 +118,10 @@ class _StartState extends State<Start> {
           MenuButton(
             name: 'gesture',
             action: () => clicked(GridExample()),
+          ),
+          MenuButton(
+            name: 'custom painter',
+            action: () => clicked(CustomPainterExample()),
           ),
           MenuButton(
             name: 'placeholder1',
