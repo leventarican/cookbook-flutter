@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:refresh/animation/animation_package_example.dart';
 import 'package:refresh/examples/animation_example.dart';
+import 'package:refresh/examples/basic_example.dart';
+import 'package:refresh/examples/custom_painter_animated_example.dart';
 import 'package:refresh/examples/custom_painter_example.dart';
 import 'package:refresh/examples/grid_exmaple.dart';
 import 'package:refresh/examples/inherited_widget_example.dart';
@@ -51,6 +53,10 @@ class _StartState extends State<Start> {
           backgroundColor: Colors.grey[700],
         ),
         body: ListView(children: [
+          MenuButton(
+            name: 'basic',
+            action: () => clicked(BasicExample()),
+          ),
           MenuButton(
             name: 'listview',
             action: () => clicked(ListViewExamplePage()),
@@ -122,6 +128,10 @@ class _StartState extends State<Start> {
           MenuButton(
             name: 'custom painter',
             action: () => clicked(CustomPainterExample()),
+          ),
+          MenuButton(
+            name: 'animated custom painter',
+            action: () => clicked(CustomPainterAnimatedExample()),
           ),
           MenuButton(
             name: 'placeholder1',

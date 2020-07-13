@@ -18,19 +18,21 @@ class CustomPainterExample extends StatelessWidget {
 }
 
 class ExamplePainter extends CustomPainter {
-
   // on repaint
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint()
-    ..color = Colors.lime
-    ..strokeWidth = 3
-    ..strokeCap = StrokeCap.butt;
+      ..color = Colors.black
+      ..strokeWidth = 3
+      ..strokeCap = StrokeCap.butt;
 
-    var start = Offset(0, size.height / 2);
-    var end = Offset(size.width, size.height / 2);
+    var start = Offset(0 + 8.0, size.height / 2);
+    var end = Offset(size.width - 8.0, size.height / 2);
 
     canvas.drawLine(start, end, paint);
+
+    Offset center = Offset(size.width / 2, size.height / 2);
+    canvas.drawCircle(center, 100, paint);
   }
 
   // on new class instance
