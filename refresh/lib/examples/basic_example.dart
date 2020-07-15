@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 ///
@@ -5,6 +7,8 @@ import 'package:flutter/material.dart';
 /// 1. create a stateless widget
 /// 2. create a stateful widget: https://github.com/FilledStacks/flutter-tutorials/blob/master/004-flutter-basics/02-setState/lib/home.dart
 /// 3. build view with FutureBuilder: https://github.com/FilledStacks/flutter-tutorials/blob/master/004-flutter-basics/03-futureBuilder/lib/home.dart
+/// 4. StreamBuilder: https://github.com/FilledStacks/flutter-tutorials/blob/master/004-flutter-basics/04-streamBuilder/lib/home.dart
+/// 5. Model: https://github.com/FilledStacks/flutter-tutorials/blob/master/004-flutter-basics/05-view-model/lib/home_model.dart
 ///
 class BasicExample extends StatelessWidget {
   @override
@@ -14,14 +18,17 @@ class BasicExample extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        // home: Home());
-        home: HomeWith());
+        // home: HomeStateless());
+        // home: HomeStateful());
+        // home: HomeFuture());
+        // home: HomeStream());
+        home: HomeModel());
   }
 }
 
 /// 1. stateless
 /// ############################################################################
-class Home extends StatelessWidget {
+class HomeStateless extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,12 +42,12 @@ class Home extends StatelessWidget {
 /// show a list of data in a list view
 /// imagine that the data is queried from a database. this will have a bit delay.
 ///
-class HomeWith extends StatefulWidget {
+class HomeStateful extends StatefulWidget {
   @override
-  _HomeWithState createState() => _HomeWithState();
+  _HomeStatefulState createState() => _HomeStatefulState();
 }
 
-class _HomeWithState extends State<HomeWith> {
+class _HomeStatefulState extends State<HomeStateful> {
   List<String> _data;
   bool get _isFetchingData => _data == null;
 
@@ -62,8 +69,11 @@ class _HomeWithState extends State<HomeWith> {
   }
 
   ///
-  /// show progress indicator if data is not ready.
-  /// otherwise show data.
+  /// at begin data is null. to indicate that the progress indicator.
+  ///
+  /// state will be chanced when delay of 2s is passed.
+  /// then the widget is redrawn.
+  /// data items are then ready and list view can be filled.
   ///
   @override
   Widget build(BuildContext context) {
@@ -94,10 +104,49 @@ class _HomeWithState extends State<HomeWith> {
   }
 }
 
+/// 3. FutureBuilder
+/// ############################################################################
+/// on button press get data
+/// build list view with FutureBuilder
+
+class HomeFuture extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[900],
+      body: FutureBuilder(
+        future: _getListData(hasData: false),
+        builder: (buildercontext, snapshot) {
+          // data can have an error
+          if (snapshot.hasError) {
+            return _getMessageUi('data error.');
+          }
+
+          // data delay
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          var data = snapshot.data;
+
+          // data can be empty
+          if (data.length == 0) {
+            return _getMessageUi('no data.');
+          }
+
+          return ListView.builder(
+              itemCount: data.length,
+              itemBuilder: (buildContext, index) =>
+                  _getListItemUi(index, data));
+        },
+      ),
+    );
+  }
+}
+
 ///
-/// simulate a delay for 2s.
-/// because of waiting this function is a asynchronous function.
-/// it will return a list of string elements after 2s delay.
+/// return a list of string elements after 2s delay.
+/// thus this function is a asynchronous function.
 ///
 Future<List<String>> _getListData(
     {bool hasError = false, bool hasData = true}) async {
@@ -112,33 +161,152 @@ Future<List<String>> _getListData(
     return List<String>();
   }
 
+  debugPrint('generating data');
   return List.generate(10, (index) => 'data: $index');
 }
 
-/// 3. FutureBuilder
+/// 4. StreamBuilder
+/// we use a stream controller to manage the data states.
 /// ############################################################################
-/// on button press get data
-/// build list view with FutureBuilder
+///
 
-class HomeFuture extends StatelessWidget {
+enum HomeViewState { Busy, DataRetrieved, NoData }
+
+class HomeStream extends StatefulWidget {
+  @override
+  _HomeStreamState createState() => _HomeStreamState();
+}
+
+class _HomeStreamState extends State<HomeStream> {
+  List<String> data;
+  final controller = StreamController<HomeViewState>();
+
+  @override
+  void initState() {
+    _getListData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          debugPrint('refresh data');
-          _getListData();
-        },
-      ),
-      backgroundColor: Colors.grey[900],
-      body: FutureBuilder(
-        future: _getListData(),
-        builder: (buildercontext, snapshot) {
-          
-        },
-      ),
-    );
+        backgroundColor: Colors.grey[900],
+        body: StreamBuilder(
+            stream: controller.stream,
+            builder: (buildContext, snapshot) {
+              if (snapshot.hasError) {
+                return _getMessageUi(snapshot.error);
+              }
+
+              if (!snapshot.hasData || snapshot.data == HomeViewState.Busy) {
+                return Center(child: CircularProgressIndicator());
+              }
+
+              if (snapshot.data == HomeViewState.NoData) {
+                return _getMessageUi('no data.');
+              }
+
+              return ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (buildContext, index) =>
+                      _getListItemUi(index, data));
+            }));
   }
+
+  Future _getListData({bool hasError = false, bool hasData = true}) async {
+    controller.add(HomeViewState.Busy);
+    await Future.delayed(Duration(seconds: 2));
+
+    if (hasError) {
+      return controller.addError('data error.');
+    }
+
+    if (!hasData) {
+      return controller.add(HomeViewState.NoData);
+    }
+
+    data = List<String>.generate(10, (index) => 'data: $index');
+    controller.add(HomeViewState.DataRetrieved);
+  }
+}
+
+/// Model ans Stream
+/// ############################################################################
+///
+
+class HomeModel extends StatefulWidget {
+  @override
+  _HomeModelState createState() => _HomeModelState();
+}
+
+class _HomeModelState extends State<HomeModel> {
+  final model = Model();
+
+  @override
+  void initState() {
+    model.getListData();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.grey[900],
+        body: StreamBuilder(
+            stream: model.homeState,
+            builder: (buildContext, snapshot) {
+              if (snapshot.hasError) {
+                return _getMessageUi(snapshot.error);
+              }
+
+              if (!snapshot.hasData || snapshot.data == HomeViewState.Busy) {
+                return Center(child: CircularProgressIndicator());
+              }
+
+              if (snapshot.data == HomeViewState.NoData) {
+                return _getMessageUi('no data.');
+              }
+
+              return ListView.builder(
+                  itemCount: model.data.length,
+                  itemBuilder: (buildContext, index) =>
+                      _getListItemUi(index, model.data));
+            }));
+  }
+}
+
+class Model {
+  List<String> data;
+  final _controller = StreamController<HomeViewState>();
+  Stream<HomeViewState> get homeState => _controller.stream;
+
+  Future getListData({bool hasError = false, bool hasData = true}) async {
+    _controller.add(HomeViewState.Busy);
+    await Future.delayed(Duration(seconds: 2));
+
+    if (hasError) {
+      return _controller.addError('data error.');
+    }
+
+    if (!hasData) {
+      return _controller.add(HomeViewState.NoData);
+    }
+
+    data = List<String>.generate(10, (index) => '$index title');
+    _controller.add(HomeViewState.DataRetrieved);
+  }
+}
+
+/// general UI functions
+/// ############################################################################
+
+Widget _getMessageUi(String msg) {
+  return Center(
+      child: Text(
+    msg,
+    textAlign: TextAlign.center,
+    style: TextStyle(fontWeight: FontWeight.w900, color: Colors.red[400]),
+  ));
 }
 
 Widget _getListItemUi(int index, List<String> listItems) {
