@@ -18,6 +18,27 @@ Web
 
 Screenshot
 -----------
-* take screenshot with: `flutter screenshot`
+* take screenshot
+```
+flutter screenshot
+```
+* resize 
+```
+convert -resize 25% i.png o.png
+```
 \
-![](screenshot.png)
+__Start__
+\
+![](start.png)
+\
+__Grid Example__
+\
+![](grid_example.png)
+\
+__Slivers Example__
+\
+![](slivers_example.png)
+\
+__Animation Package Example__
+\
+![](animation_package_example.png)

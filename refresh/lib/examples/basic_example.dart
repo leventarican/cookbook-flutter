@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 /// the flutter basics
 /// 1. create a stateless widget
 /// 2. create a stateful widget: https://github.com/FilledStacks/flutter-tutorials/blob/master/004-flutter-basics/02-setState/lib/home.dart
+/// 
+/// async patterns
 /// 3. build view with FutureBuilder: https://github.com/FilledStacks/flutter-tutorials/blob/master/004-flutter-basics/03-futureBuilder/lib/home.dart
 /// 4. StreamBuilder: https://github.com/FilledStacks/flutter-tutorials/blob/master/004-flutter-basics/04-streamBuilder/lib/home.dart
 /// 5. Model: https://github.com/FilledStacks/flutter-tutorials/blob/master/004-flutter-basics/05-view-model/lib/home_model.dart
