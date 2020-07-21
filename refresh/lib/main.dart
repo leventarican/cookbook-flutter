@@ -7,7 +7,8 @@ import 'package:refresh/examples/animation_example.dart';
 import 'package:refresh/examples/basic_example.dart';
 import 'package:refresh/examples/custom_painter_animated_example.dart';
 import 'package:refresh/examples/custom_painter_example.dart';
-import 'package:refresh/examples/grid_exmaple.dart';
+import 'package:refresh/examples/grid_example.dart';
+import 'package:refresh/examples/gridview_model_example.dart';
 import 'package:refresh/examples/inherited_widget_example.dart';
 import 'package:refresh/examples/json_rest_example.dart';
 import 'package:refresh/examples/listview_future_example.dart';
@@ -122,8 +123,12 @@ class _StartState extends State<Start> {
             action: () => clicked(ListViewFutureExample()),
           ),
           MenuButton(
-            name: 'gesture',
+            name: 'gridview / gesture',
             action: () => clicked(GridExample()),
+          ),
+          MenuButton(
+            name: 'gridview / model',
+            action: () => clicked(GridviewModelExample()),
           ),
           MenuButton(
             name: 'custom painter',

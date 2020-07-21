@@ -11,7 +11,10 @@ class GridExample extends StatelessWidget {
           ),
         ),
         body: GridView.count(
-          crossAxisCount: 3,
+          crossAxisCount: 4,
+          mainAxisSpacing: 20,
+          crossAxisSpacing: 20,
+          padding: EdgeInsets.all(20),
           children: List.generate(50, (index) {
             return GestureDetector(
               onTap: () {
