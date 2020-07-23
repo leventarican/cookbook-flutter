@@ -6,7 +6,7 @@ import 'dart:math' as math;
 /// also demo of setstate. like in React.
 /// the UI is re-build when the state changes with Stateful widgets.
 ///
-class SimpleExample extends StatelessWidget {
+class WidgetsExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -48,7 +48,7 @@ class TheState extends State<ThePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('setState example & more',
+        title: Text('widgets showroom',
             style: Theme.of(context).textTheme.headline5),
         backgroundColor: Colors.amber[200],
         centerTitle: true,
@@ -60,6 +60,18 @@ class TheState extends State<ThePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 10.0),
+                    child: CircleAvatar(
+                      backgroundImage:
+                          NetworkImage('https://picsum.photos/250?image=41'),
+                      backgroundColor: Colors.lime[200],
+                      radius: 50.0,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
                   Text(_lang, style: Theme.of(context).textTheme.headline4),
                   Divider(
                     color: Colors.amber.shade100,
@@ -101,10 +113,6 @@ class TheState extends State<ThePage> {
                   ),
                   Column(
                     children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.lime[200],
-                        radius: 50.0,
-                      ),
                       Stack(
                         children: [
                           Container(
@@ -129,6 +137,70 @@ class TheState extends State<ThePage> {
                         height: 400.0,
                         width: 40.0,
                       ),
+                      Container(
+                        height: 100.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(50.0),
+                            bottomRight: Radius.circular(50.0),
+                          ),
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.lightGreen.shade100,
+                              Colors.lightGreen.shade500,
+                            ],
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.lightGreen.shade300,
+                              blurRadius: 5.0,
+                              offset: Offset(0.0, 10.0),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: RichText(
+                              text: TextSpan(
+                                  text: 'Decoration',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 30.0))),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      Card(
+                          elevation: 32.0,
+                          color: Colors.white,
+                          margin: EdgeInsets.all(16.0),
+                          clipBehavior: Clip.antiAlias,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              const Text('Card',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 32.0,
+                                  )),
+                              ClipRRect(
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(16.0),
+                                    bottom: Radius.circular(16.0)),
+                                child: Image.network(
+                                    'https://picsum.photos/250?image=71'),
+                              ),
+                              const ListTile(
+                                leading: Icon(Icons.timelapse),
+                                title: Text('Foobar'),
+                                subtitle: Text(
+                                    'developed by flutter'),
+                              ),
+                            ],
+                          )),
                     ],
                   ),
                 ],

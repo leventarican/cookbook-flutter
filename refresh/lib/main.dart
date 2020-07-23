@@ -15,7 +15,7 @@ import 'package:refresh/examples/listview_future_example.dart';
 import 'package:refresh/examples/navigation_basic_example.dart';
 import 'package:refresh/examples/navigation_example.dart';
 import 'package:refresh/examples/row_column_example.dart';
-import 'package:refresh/examples/simple_example.dart';
+import 'package:refresh/examples/widgets_example.dart';
 import 'package:refresh/examples/slivers_example.dart';
 import 'package:refresh/examples/stateless_example.dart';
 
@@ -67,8 +67,8 @@ class _StartState extends State<Start> {
             action: () => clicked(NavigationExample()),
           ),
           MenuButton(
-            name: 'simple',
-            action: () => clicked(SimpleExample()),
+            name: 'ui widgets',
+            action: () => clicked(WidgetsExample()),
           ),
           MenuButton(
             name: 'json / rest',
