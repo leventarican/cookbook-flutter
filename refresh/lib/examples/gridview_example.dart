@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class GridExample extends StatelessWidget {
+class GridviewExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,7 +11,7 @@ class GridExample extends StatelessWidget {
           ),
         ),
         body: GridView.count(
-          crossAxisCount: 4,
+          crossAxisCount: 2,
           mainAxisSpacing: 20,
           crossAxisSpacing: 20,
           padding: EdgeInsets.all(20),

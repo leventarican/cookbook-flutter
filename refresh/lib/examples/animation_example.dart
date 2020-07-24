@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -8,7 +10,58 @@ class AnimationExample extends StatefulWidget {
   _AnimationExampleState createState() => _AnimationExampleState();
 }
 
-class _AnimationExampleState extends State<AnimationExample>
+class _AnimationExampleState extends State<AnimationExample> {
+  Color _color;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _color = Colors.grey.shade400;
+
+    Timer.periodic(Duration(seconds: 3), (_) {
+      if (mounted) {
+        setState(() {
+          _color = Colors.grey.shade400;
+        });
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SizedBox(
+            height: 100.0,
+          ),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _color = Colors.amber.shade200;
+              });
+            },
+            child: Container(
+              margin: EdgeInsets.all(16.0),
+              color: _color,
+              height: 200.0,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class AnimationControllerExample extends StatefulWidget {
+  @override
+  _AnimationControllerExampleState createState() =>
+      _AnimationControllerExampleState();
+}
+
+class _AnimationControllerExampleState extends State<AnimationControllerExample>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
 
@@ -58,16 +111,6 @@ class AnimatedImage extends AnimatedWidget {
   @override
   Widget build(BuildContext context) {
     debugPrint('progress: ${_progress.value}');
-    // return Scaffold(
-    //     body: SizedBox(
-    //   child: Container(
-    //     child: Image.asset(_image),
-    //     height: 100 * _progress.value,
-    //     width: 100 * _progress.value,
-    //     margin: EdgeInsets.all(50),
-    //   ),
-    // ));
-
     return Container(
         color: Colors.amber[50],
         child: Center(

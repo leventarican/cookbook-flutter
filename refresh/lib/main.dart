@@ -7,7 +7,7 @@ import 'package:refresh/examples/animation_example.dart';
 import 'package:refresh/examples/basic_example.dart';
 import 'package:refresh/examples/custom_painter_animated_example.dart';
 import 'package:refresh/examples/custom_painter_example.dart';
-import 'package:refresh/examples/grid_example.dart';
+import 'package:refresh/examples/gridview_example.dart';
 import 'package:refresh/examples/gridview_model_example.dart';
 import 'package:refresh/examples/inherited_widget_example.dart';
 import 'package:refresh/examples/json_rest_example.dart';
@@ -124,7 +124,7 @@ class _StartState extends State<Start> {
           ),
           MenuButton(
             name: 'gridview / gesture',
-            action: () => clicked(GridExample()),
+            action: () => clicked(GridviewExample()),
           ),
           MenuButton(
             name: 'gridview / model',
