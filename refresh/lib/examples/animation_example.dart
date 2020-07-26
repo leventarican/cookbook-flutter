@@ -11,47 +11,83 @@ class AnimationExample extends StatefulWidget {
 }
 
 class _AnimationExampleState extends State<AnimationExample> {
-  Color _color;
+  List<Color> _colors = List.filled(2, Colors.grey.shade400);
+  Timer _timer;
+
+  Timer get timer => _timer;
+
+  @override
+  void dispose() {
+    if (_timer.isActive) {
+      _timer.cancel();
+    }
+    super.dispose();
+  }
 
   @override
   void initState() {
-    super.initState();
-
-    _color = Colors.grey.shade400;
-
-    Timer.periodic(Duration(seconds: 3), (_) {
+    _timer = Timer.periodic(Duration(seconds: 4), (_) {
       if (mounted) {
+        debugPrint('mounted');
         setState(() {
-          _color = Colors.grey.shade400;
+          _colors = List.filled(2, Colors.grey.shade400);
         });
+      } else {
+        debugPrint('not mounted');
       }
     });
+
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: GridView.count(
+        crossAxisCount: 2,
         children: [
-          SizedBox(
-            height: 100.0,
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _colors[0] = Colors.amber.shade200;
+              });
+            },
+            child: AnimatedContainer(
+              duration: Duration(seconds: 1),
+              margin: EdgeInsets.all(16.0),
+              color: _colors[0],
+              height: 200.0,
+            ),
           ),
           GestureDetector(
             onTap: () {
               setState(() {
-                _color = Colors.amber.shade200;
+                _colors[1] = Colors.green.shade200;
               });
             },
-            child: Container(
+            child: AnimatedContainer(
+              duration: Duration(seconds: 1),
               margin: EdgeInsets.all(16.0),
-              color: _color,
+              color: _colors[1],
               height: 200.0,
             ),
-          )
+          ),
         ],
       ),
     );
+  }
+}
+
+class MemoryExample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: GridView.builder(
+            gridDelegate:
+                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            itemBuilder: (context, index) {
+              return null;
+            }));
   }
 }
 
