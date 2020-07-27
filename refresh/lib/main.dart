@@ -67,8 +67,8 @@ class _StartState extends State<Start> {
             action: () => clicked(NavigationExample()),
           ),
           MenuButton(
-            name: 'ui widgets',
-            action: () => clicked(WidgetsExample()),
+            name: 'state & widgets',
+            action: () => clicked(StateAndWidget(lang: 'smalltalk',)),
           ),
           MenuButton(
             name: 'json / rest',

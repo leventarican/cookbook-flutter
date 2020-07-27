@@ -3,27 +3,28 @@ import 'dart:math' as math;
 
 ///
 /// demonstration of basic widgets
-/// also demo of setstate. like in React.
+/// also demo of simple state. like in React.
 /// the UI is re-build when the state changes with Stateful widgets.
 ///
-class WidgetsExample extends StatelessWidget {
+
+///
+/// the widget class: for drawing the widget
+/// is public
+///
+class StateAndWidget extends StatefulWidget {
+  final String lang;
+
+  StateAndWidget({Key key, this.lang}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: ThePage(),
-    );
-  }
+  _StateAndWidgetState createState() => _StateAndWidgetState();
 }
 
-class ThePage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return TheState();
-  }
-}
-
-class TheState extends State<ThePage> {
-  // convention over code: _ is private
+///
+/// the state class: for maintaining the data
+/// is private
+///
+class _StateAndWidgetState extends State<StateAndWidget> {
   var _languages = [
     "go",
     "dart",
@@ -34,14 +35,24 @@ class TheState extends State<ThePage> {
     "javascript",
     "c"
   ];
-  var _lang = "press button";
 
+  var _lang;
+
+  // whenever we change a state we do this in setState function
   _action() {
     setState(() {
       _languages..shuffle();
       _lang = _languages.first;
       debugPrint(_lang);
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // get initial value from StateAndWidget
+    _lang = widget.lang;
   }
 
   @override
@@ -196,8 +207,7 @@ class TheState extends State<ThePage> {
                               const ListTile(
                                 leading: Icon(Icons.timelapse),
                                 title: Text('Foobar'),
-                                subtitle: Text(
-                                    'developed by flutter'),
+                                subtitle: Text('developed by flutter'),
                               ),
                             ],
                           )),
