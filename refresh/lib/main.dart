@@ -7,6 +7,7 @@ import 'package:refresh/examples/animation_example.dart';
 import 'package:refresh/examples/basic_example.dart';
 import 'package:refresh/examples/custom_painter_animated_example.dart';
 import 'package:refresh/examples/custom_painter_example.dart';
+import 'package:refresh/examples/foobar.dart';
 import 'package:refresh/examples/gridview_example.dart';
 import 'package:refresh/examples/gridview_model_example.dart';
 import 'package:refresh/examples/inherited_widget_example.dart';
@@ -68,7 +69,9 @@ class _StartState extends State<Start> {
           ),
           MenuButton(
             name: 'state & widgets',
-            action: () => clicked(StateAndWidget(lang: 'smalltalk',)),
+            action: () => clicked(StateAndWidget(
+              lang: 'smalltalk',
+            )),
           ),
           MenuButton(
             name: 'json / rest',
@@ -139,8 +142,8 @@ class _StartState extends State<Start> {
             action: () => clicked(CustomPainterAnimatedExample()),
           ),
           MenuButton(
-            name: 'placeholder1',
-            action: () => clicked(StatelessExample()),
+            name: 'foobar',
+            action: () => clicked(Foobar()),
           ),
         ]));
   }
