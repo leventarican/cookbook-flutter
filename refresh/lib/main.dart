@@ -16,6 +16,7 @@ import 'package:refresh/examples/listview_future_example.dart';
 import 'package:refresh/examples/navigation_basic_example.dart';
 import 'package:refresh/examples/navigation_example.dart';
 import 'package:refresh/examples/row_column_example.dart';
+import 'package:refresh/examples/slider_example.dart';
 import 'package:refresh/examples/widgets_example.dart';
 import 'package:refresh/examples/slivers_example.dart';
 import 'package:refresh/examples/stateless_example.dart';
@@ -55,6 +56,10 @@ class _StartState extends State<Start> {
           backgroundColor: Colors.grey[700],
         ),
         body: ListView(children: [
+          MenuButton(
+            name: 'slider',
+            action: () => clicked(SliderExample()),
+          ),
           MenuButton(
             name: 'basic',
             action: () => clicked(BasicExample()),
