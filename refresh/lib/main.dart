@@ -57,6 +57,10 @@ class _StartState extends State<Start> {
         ),
         body: ListView(children: [
           MenuButton(
+            name: 'foobar',
+            action: () => clicked(Foobar()),
+          ),
+          MenuButton(
             name: 'slider',
             action: () => clicked(SliderExample()),
           ),
@@ -145,10 +149,6 @@ class _StartState extends State<Start> {
           MenuButton(
             name: 'animated custom painter',
             action: () => clicked(CustomPainterAnimatedExample()),
-          ),
-          MenuButton(
-            name: 'foobar',
-            action: () => clicked(Foobar()),
           ),
         ]));
   }

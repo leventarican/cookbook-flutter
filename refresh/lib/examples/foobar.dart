@@ -1,110 +1,124 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-num radians(num deg) => deg * (math.pi / 180.0);
-
-/// 
-/// under development
-/// 
-/// passing state down
-/// lifting state up is not possible. instead we call the function: dont call me i will call you.
-/// 
 class Foobar extends StatefulWidget {
   @override
   _FoobarState createState() => _FoobarState();
 }
 
 class _FoobarState extends State<Foobar> {
-  double _deg = 0;
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('foobar'),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'foobar',
+      theme: ThemeData(
+        primarySwatch: Colors.lightGreen,
       ),
-      body: Container(
-          child: Column(
-        children: [
-          Rect(
-            color: Colors.lightGreen.shade300,
-            size: 200.0,
-            deg: _deg,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('foobar'),
+          leading: IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {},
           ),
-          ValueChanger(
-            value: 0,
-            onChanged: _setDeg,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.more_vert),
+              onPressed: () {},
+            ),
+          ],
+          flexibleSpace: SafeArea(
+            child: Icon(
+              Icons.photo_camera,
+              size: 75.0,
+              color: Colors.white70,
+            ),
           ),
-        ],
-      )),
-    );
-  }
-
-  void _setDeg(int value) {
-    setState(() {
-      _deg = value.toDouble();
-    });
-  }
-}
-
-class Rect extends StatelessWidget {
-  final Color color;
-  final double size;
-  final double deg;
-  Rect({@required this.color, this.size = 50, @required this.deg});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        margin: EdgeInsets.all(16.0),
-        width: size,
-        height: size,
-        transform: Matrix4.rotationY(radians(deg)),
-        decoration: BoxDecoration(color: color, shape: BoxShape.rectangle));
-  }
-}
-
-class ValueChanger extends StatefulWidget {
-  final Function onChanged;
-  final int value;
-
-  // Value passed in from its host
-  ValueChanger({Key key, this.value = 0, this.onChanged}) : super(key: key);
-
-  @override
-  _ValueChangerState createState() => _ValueChangerState();
-}
-
-class _ValueChangerState extends State<ValueChanger> {
-  int _value;
-
-  @override
-  Widget build(BuildContext context) {
-    
-    _value = widget.value;
-
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Text('deg'),
-          Slider(
-            min: 0,
-            max: 360,
-            value: _value?.toDouble(),
-            label: 'deg',
-            onChanged: _onChanged,
-          )
-        ],
+          bottom: PreferredSize(
+            child: Container(
+              color: Colors.lightGreen.shade100,
+              height: 75.0,
+              width: double.infinity,
+              child: Center(
+                child: Text('appbar'),
+              ),
+            ),
+            preferredSize: Size.fromHeight(75.0),
+          ),
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const RowWidget(),
+                  Divider(),
+                  const ColumnWidget(),
+                  Divider(),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
+}
 
-  _onChanged(double value) {
-    debugPrint('$value');
-    setState(() {
-      this._value = value.round();
-    });
-    widget.onChanged(value.round());
+class RowWidget extends StatelessWidget {
+  const RowWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Row(
+          children: [
+            Text('Row 1'),
+            Padding(
+              padding: EdgeInsets.all(16.0),
+            ),
+            Text('Row 2'),
+            Padding(
+              padding: EdgeInsets.all(16.0),
+            ),
+            Text('Row 3'),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class ColumnWidget extends StatelessWidget {
+  const ColumnWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Text('Column 1'),
+        Divider(),
+        Text('Column 2'),
+        Divider(),
+        Text('Column 3'),
+      ],
+    );
   }
 }
