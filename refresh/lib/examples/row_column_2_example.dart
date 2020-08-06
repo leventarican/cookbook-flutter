@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
-class Foobar extends StatefulWidget {
+class RowColumn2Example extends StatefulWidget {
   @override
-  _FoobarState createState() => _FoobarState();
+  _RowColumn2ExampleState createState() => _RowColumn2ExampleState();
 }
 
-class _FoobarState extends State<Foobar> {
+class _RowColumn2ExampleState extends State<RowColumn2Example> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,7 +19,9 @@ class _FoobarState extends State<Foobar> {
           title: Text('foobar'),
           leading: IconButton(
             icon: Icon(Icons.menu),
-            onPressed: () {},
+            onPressed: () {
+              debugPrint('orientation: ${MediaQuery.of(context).orientation}');
+            },
           ),
           actions: <Widget>[
             IconButton(

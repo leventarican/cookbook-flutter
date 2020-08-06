@@ -7,7 +7,7 @@ import 'package:refresh/examples/animation_example.dart';
 import 'package:refresh/examples/basic_example.dart';
 import 'package:refresh/examples/custom_painter_animated_example.dart';
 import 'package:refresh/examples/custom_painter_example.dart';
-import 'package:refresh/examples/foobar.dart';
+import 'package:refresh/examples/row_column_2_example.dart';
 import 'package:refresh/examples/gridview_example.dart';
 import 'package:refresh/examples/gridview_model_example.dart';
 import 'package:refresh/examples/inherited_widget_example.dart';
@@ -20,6 +20,7 @@ import 'package:refresh/examples/slider_example.dart';
 import 'package:refresh/examples/widgets_example.dart';
 import 'package:refresh/examples/slivers_example.dart';
 import 'package:refresh/examples/stateless_example.dart';
+import 'package:refresh/foobar.dart';
 
 import './pages/start_page.dart';
 import './pages/programminglanguage_page.dart';
@@ -91,8 +92,12 @@ class _StartState extends State<Start> {
             action: () => clicked(Template()),
           ),
           MenuButton(
-            name: 'row column',
+            name: 'row column 1',
             action: () => clicked(RowColumnExample()),
+          ),
+          MenuButton(
+            name: 'row column 2',
+            action: () => clicked(RowColumn2Example()),
           ),
           MenuButton(
             name: 'start page',

@@ -35,6 +35,9 @@ dependencies:
   # maps example
   google_maps_flutter: ^0.5.27+3
 
+  # for filesystem: file, folder, ...
+  path_provider: ^1.6.11
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
