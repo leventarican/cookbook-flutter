@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -32,7 +35,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   String _directory;
 
   @override
@@ -54,6 +56,11 @@ class _HomeState extends State<Home> {
                   setState(() {
                     _directory = path;
                   });
+                  Data data =
+                      Data(id: '0', header: 'start', payload: 'hello world.');
+                  String dataJson = json.encode(data);
+                  await Utils().writeToFile(dataJson);
+                  debugPrint(dataJson);
                 },
                 child: Text('app document directory'),
               ),
@@ -79,4 +86,31 @@ class Utils {
     final directory = await getApplicationDocumentsDirectory();
     return directory.path;
   }
+
+  Future<File> get _getFile async {
+    final directory = await _getDir;
+    return File('$directory/data.json');
+  }
+
+  Future<File> writeToFile(String json) async {
+    final file = await _getFile;
+    return file.writeAsString('$json');
+  }
+}
+
+///
+/// {"id":"0","header":"start","payload":"hello world."}
+///
+class Data {
+  String id;
+  String header;
+  String payload;
+
+  Data({this.id, this.header, this.payload});
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "header": header,
+        "payload": payload,
+      };
 }
