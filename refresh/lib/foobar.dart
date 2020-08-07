@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -37,6 +38,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String _directory;
 
+  Stream<dynamic> _paths = Stream.fromFuture(Utils()._getDir);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,6 +74,69 @@ class _HomeState extends State<Home> {
               child: Text('directory: $_directory'),
             ),
             Divider(),
+            SingleChildScrollView(
+              child: StreamBuilder(
+                stream: _paths,
+                builder:
+                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  List<Widget> children;
+
+                  if (snapshot.hasError) {
+                    return Text('error');
+                  } else {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.none:
+                        children = [
+                          Icon(Icons.error),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text('error.'),
+                          )
+                        ];
+                        break;
+                      case ConnectionState.waiting:
+                        children = [
+                          SizedBox(
+                            child: const CircularProgressIndicator(),
+                            width: 60,
+                            height: 60,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text('waiting.'),
+                          )
+                        ];
+                        break;
+                      case ConnectionState.active:
+                        children = [
+                          Icon(Icons.info),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text('active.'),
+                          )
+                        ];
+                        break;
+                      case ConnectionState.done:
+                        // /data/user/0/com.example.refresh/app_flutter
+                        var data = snapshot.data;
+                        debugPrint('data: $data');
+
+                        Directory(data).listSync().forEach((element) {
+                          children.add(Text('$element'));
+                        });
+
+                        break;
+                    }
+                  }
+
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: children,
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
@@ -83,8 +149,9 @@ class _HomeState extends State<Home> {
 ///
 class Utils {
   Future<String> get _getDir async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
+    Future<Directory> directory = getApplicationDocumentsDirectory();
+    directory.then((value) => debugPrint('# dir: $value'));
+    return (await directory).path;
   }
 
   Future<File> get _getFile async {
