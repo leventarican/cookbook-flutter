@@ -51,6 +51,27 @@ class _HomeState extends State<Home> {
           children: [
             Padding(
               padding: const EdgeInsets.all(16.0),
+              child: RichText(
+                text: TextSpan(
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                    children: [
+                      TextSpan(
+                          text: 'create json file and ',
+                          style: TextStyle(color: Colors.amberAccent.shade400)),
+                      TextSpan(
+                          text: 'list folder content',
+                          style: TextStyle(letterSpacing: 8.0,fontSize: 36))
+                    ]),
+              ),
+            ),
+            SizedBox(
+              child: Container(
+                height: 16.0,
+                color: Colors.amberAccent.shade100,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
               child: FlatButton(
                 color: Colors.amberAccent.shade200,
                 onPressed: () async {
@@ -73,7 +94,12 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.all(16.0),
               child: Text('directory: $_directory'),
             ),
-            Divider(),
+            SizedBox(
+              child: Container(
+                height: 16.0,
+                color: Colors.amberAccent.shade100,
+              ),
+            ),
             SingleChildScrollView(
               child: StreamBuilder(
                 stream: _paths,
@@ -120,9 +146,13 @@ class _HomeState extends State<Home> {
                         // /data/user/0/com.example.refresh/app_flutter
                         var data = snapshot.data;
                         debugPrint('data: $data');
-
+                        children = [];
                         Directory(data).listSync().forEach((element) {
-                          children.add(Text('$element'));
+                          children.add(Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text('$element'),
+                          ));
+                          children.add(Divider());
                         });
 
                         break;
