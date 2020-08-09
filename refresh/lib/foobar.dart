@@ -39,6 +39,7 @@ class _HomeState extends State<Home> {
   String _directory;
 
   Stream<dynamic> _paths = Stream.fromFuture(Utils()._getDir);
+  Stream<String> _data = Utils()._data();
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(color: Colors.amberAccent.shade400)),
                       TextSpan(
                           text: 'list folder content',
-                          style: TextStyle(letterSpacing: 8.0,fontSize: 36))
+                          style: TextStyle(letterSpacing: 8.0, fontSize: 36))
                     ]),
               ),
             ),
@@ -100,18 +101,109 @@ class _HomeState extends State<Home> {
                 color: Colors.amberAccent.shade100,
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: FlatButton(
+                color: Colors.amberAccent.shade200,
+                onPressed: () async {
+                  debugPrint('delete');
+                  Utils()._deleteFile();
+                },
+                child: Text('delete json file'),
+              ),
+            ),
+            SizedBox(
+              child: Container(
+                height: 16.0,
+                color: Colors.amberAccent.shade100,
+              ),
+            ),
+            // SingleChildScrollView(
+            //   child: StreamBuilder(
+            //     stream: _paths,
+            //     builder:
+            //         (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            //       List<Widget> children;
+
+            //       if (snapshot.hasError) {
+            //         return Text('error');
+            //       } else {
+            //         switch (snapshot.connectionState) {
+            //           case ConnectionState.none:
+            //             children = [
+            //               Icon(Icons.error),
+            //               Padding(
+            //                 padding: const EdgeInsets.all(16.0),
+            //                 child: Text('error.'),
+            //               )
+            //             ];
+            //             break;
+            //           case ConnectionState.waiting:
+            //             children = [
+            //               SizedBox(
+            //                 child: const CircularProgressIndicator(),
+            //                 width: 60,
+            //                 height: 60,
+            //               ),
+            //               Padding(
+            //                 padding: const EdgeInsets.all(16.0),
+            //                 child: Text('waiting.'),
+            //               )
+            //             ];
+            //             break;
+            //           case ConnectionState.active:
+            //             children = [
+            //               Icon(Icons.info),
+            //               Padding(
+            //                 padding: const EdgeInsets.all(16.0),
+            //                 child: Text('active.'),
+            //               )
+            //             ];
+            //             break;
+            //           case ConnectionState.done:
+            //             // /data/user/0/com.example.refresh/app_flutter
+            //             var data = snapshot.data;
+            //             debugPrint('data: $data');
+            //             children = [];
+            //             Directory(data).listSync().forEach((element) {
+            //               children.add(Padding(
+            //                 padding: const EdgeInsets.all(16.0),
+            //                 child: Text('$element'),
+            //               ));
+            //               children.add(Divider());
+            //             });
+
+            //             break;
+            //         }
+            //       }
+
+            //       return Column(
+            //         mainAxisAlignment: MainAxisAlignment.center,
+            //         crossAxisAlignment: CrossAxisAlignment.center,
+            //         children: children,
+            //       );
+            //     },
+            //   ),
+            // ),
+            SizedBox(
+              child: Container(
+                height: 16.0,
+                color: Colors.amberAccent.shade100,
+              ),
+            ),
             SingleChildScrollView(
               child: StreamBuilder(
-                stream: _paths,
+                stream: _data,
                 builder:
                     (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                  List<Widget> children;
+                  List<Widget> children = [];
 
                   if (snapshot.hasError) {
                     return Text('error');
                   } else {
                     switch (snapshot.connectionState) {
                       case ConnectionState.none:
+                        debugPrint('none');
                         children = [
                           Icon(Icons.error),
                           Padding(
@@ -121,11 +213,12 @@ class _HomeState extends State<Home> {
                         ];
                         break;
                       case ConnectionState.waiting:
+                        debugPrint('waiting');
                         children = [
                           SizedBox(
                             child: const CircularProgressIndicator(),
-                            width: 60,
-                            height: 60,
+                            width: 32,
+                            height: 32,
                           ),
                           Padding(
                             padding: const EdgeInsets.all(16.0),
@@ -134,26 +227,19 @@ class _HomeState extends State<Home> {
                         ];
                         break;
                       case ConnectionState.active:
-                        children = [
-                          Icon(Icons.info),
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Text('active.'),
-                          )
-                        ];
+                        var data = snapshot.data;
+                        debugPrint('active: $data');
+
+                        children.add(Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text('$data'),
+                        ));
                         break;
                       case ConnectionState.done:
+                        debugPrint('done');
                         // /data/user/0/com.example.refresh/app_flutter
                         var data = snapshot.data;
-                        debugPrint('data: $data');
-                        children = [];
-                        Directory(data).listSync().forEach((element) {
-                          children.add(Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Text('$element'),
-                          ));
-                          children.add(Divider());
-                        });
+                        debugPrint('done: $data');
 
                         break;
                     }
@@ -180,8 +266,13 @@ class _HomeState extends State<Home> {
 class Utils {
   Future<String> get _getDir async {
     Future<Directory> directory = getApplicationDocumentsDirectory();
-    directory.then((value) => debugPrint('# dir: $value'));
-    return (await directory).path;
+    // directory.then((value) => debugPrint('# dir: $value'));
+    var path = (await directory).path;
+
+    // File jayson = File('$path/data.json');
+    // jayson.exists().then((_) => jayson.delete(recursive: false));
+
+    return path;
   }
 
   Future<File> get _getFile async {
@@ -192,6 +283,32 @@ class Utils {
   Future<File> writeToFile(String json) async {
     final file = await _getFile;
     return file.writeAsString('$json');
+  }
+
+  _deleteFile() async {
+    String directory = await _getDir;
+    File jayson = File('$directory/data.json');
+    jayson.exists().then((_) => jayson.delete(recursive: false));
+  }
+
+  Stream<String> _data() {
+    Timer timer;
+    StreamController<String> controller;
+
+    void callback(_) {
+      for (var i = 0; i < 3; i++) {
+        controller.add('# data: $i');
+      }
+      timer.cancel();
+      controller.close();
+    }
+
+    void start() {
+      timer = Timer.periodic(Duration(seconds: 3), callback);
+    }
+    
+    controller = StreamController<String>(onListen: start);
+    return controller.stream;
   }
 }
 
