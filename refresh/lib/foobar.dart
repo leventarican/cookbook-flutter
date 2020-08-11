@@ -91,6 +91,25 @@ class _HomeState extends State<Home> {
               ),
             ),
             Divider(),
+            FutureBuilder(
+              future: Utils()._getDir,
+              builder: (BuildContext buildercontext,
+                  AsyncSnapshot<String> snapshot) {
+                Text text = const Text('');
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasError) {
+                    text = Text('# Error: ${snapshot.error}');
+                  } else if (snapshot.hasData) {
+                    text = Text('# path: ${snapshot.data}');
+                  } else {
+                    text = const Text('# path unavailable');
+                  }
+                }
+                return Padding(
+                    padding: const EdgeInsets.all(16.0), child: text);
+              },
+            ),
+            Divider(),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text('directory: $_directory'),
@@ -306,7 +325,7 @@ class Utils {
     void start() {
       timer = Timer.periodic(Duration(seconds: 3), callback);
     }
-    
+
     controller = StreamController<String>(onListen: start);
     return controller.stream;
   }
