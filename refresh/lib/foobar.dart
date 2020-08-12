@@ -40,6 +40,7 @@ class _HomeState extends State<Home> {
 
   Stream<dynamic> _paths = Stream.fromFuture(Utils()._getDir);
   Stream<String> _data = Utils()._data();
+  String _jsonContent = '-';
 
   @override
   Widget build(BuildContext context) {
@@ -47,171 +48,171 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Container(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: RichText(
-                text: TextSpan(
-                    style: TextStyle(color: Colors.black, fontSize: 16),
-                    children: [
-                      TextSpan(
-                          text: 'create json file and ',
-                          style: TextStyle(color: Colors.amberAccent.shade400)),
-                      TextSpan(
-                          text: 'list folder content',
-                          style: TextStyle(letterSpacing: 8.0, fontSize: 36))
-                    ]),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: RichText(
+                  text: TextSpan(
+                      style: TextStyle(color: Colors.black, fontSize: 16),
+                      children: [
+                        TextSpan(
+                            text: 'create json file and ',
+                            style:
+                                TextStyle(color: Colors.amberAccent.shade400)),
+                        TextSpan(
+                            text: 'list folder content',
+                            style: TextStyle(letterSpacing: 8.0, fontSize: 36))
+                      ]),
+                ),
               ),
-            ),
-            SizedBox(
-              child: Container(
-                height: 16.0,
-                color: Colors.amberAccent.shade100,
+              SizedBox(
+                child: Container(
+                  height: 16.0,
+                  color: Colors.amberAccent.shade100,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: FlatButton(
-                color: Colors.amberAccent.shade200,
-                onPressed: () async {
-                  var path = await Utils()._getDir;
-                  debugPrint('path : $path');
-                  setState(() {
-                    _directory = path;
-                  });
-                  Data data =
-                      Data(id: '0', header: 'start', payload: 'hello world.');
-                  String dataJson = json.encode(data);
-                  await Utils().writeToFile(dataJson);
-                  debugPrint(dataJson);
-                },
-                child: Text('app document directory'),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: FlatButton(
+                  color: Colors.amberAccent.shade200,
+                  onPressed: () async {
+                    var path = await Utils()._getDir;
+                    debugPrint('path : $path');
+                    setState(() {
+                      _directory = path;
+                    });
+                    Data data =
+                        Data(id: '0', header: 'start', payload: 'hello world.');
+                    String dataJson = json.encode(data);
+                    await Utils().writeToFile(dataJson);
+                    debugPrint(dataJson);
+                  },
+                  child:
+                      Text('show app document directory and create json file.'),
+                ),
               ),
-            ),
-            Divider(),
-            FutureBuilder(
-              future: Utils()._getDir,
-              builder: (BuildContext buildercontext,
-                  AsyncSnapshot<String> snapshot) {
-                Text text = const Text('');
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasError) {
-                    text = Text('# Error: ${snapshot.error}');
-                  } else if (snapshot.hasData) {
-                    text = Text('# path: ${snapshot.data}');
-                  } else {
-                    text = const Text('# path unavailable');
+              Divider(),
+              FutureBuilder(
+                future: Utils()._getDir,
+                builder: (BuildContext buildercontext,
+                    AsyncSnapshot<String> snapshot) {
+                  Text text = const Text('');
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasError) {
+                      text = Text('# Error: ${snapshot.error}');
+                    } else if (snapshot.hasData) {
+                      text = Text('# path: ${snapshot.data}');
+                    } else {
+                      text = const Text('# path unavailable');
+                    }
                   }
-                }
-                return Padding(
-                    padding: const EdgeInsets.all(16.0), child: text);
-              },
-            ),
-            Divider(),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text('directory: $_directory'),
-            ),
-            SizedBox(
-              child: Container(
-                height: 16.0,
-                color: Colors.amberAccent.shade100,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: FlatButton(
-                color: Colors.amberAccent.shade200,
-                onPressed: () async {
-                  debugPrint('delete');
-                  Utils()._deleteFile();
+                  return Padding(
+                      padding: const EdgeInsets.all(16.0), child: text);
                 },
-                child: Text('delete json file'),
               ),
-            ),
-            SizedBox(
-              child: Container(
-                height: 16.0,
-                color: Colors.amberAccent.shade100,
+              Divider(),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text('directory: $_directory'),
               ),
-            ),
-            // SingleChildScrollView(
-            //   child: StreamBuilder(
-            //     stream: _paths,
-            //     builder:
-            //         (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            //       List<Widget> children;
-
-            //       if (snapshot.hasError) {
-            //         return Text('error');
-            //       } else {
-            //         switch (snapshot.connectionState) {
-            //           case ConnectionState.none:
-            //             children = [
-            //               Icon(Icons.error),
-            //               Padding(
-            //                 padding: const EdgeInsets.all(16.0),
-            //                 child: Text('error.'),
-            //               )
-            //             ];
-            //             break;
-            //           case ConnectionState.waiting:
-            //             children = [
-            //               SizedBox(
-            //                 child: const CircularProgressIndicator(),
-            //                 width: 60,
-            //                 height: 60,
-            //               ),
-            //               Padding(
-            //                 padding: const EdgeInsets.all(16.0),
-            //                 child: Text('waiting.'),
-            //               )
-            //             ];
-            //             break;
-            //           case ConnectionState.active:
-            //             children = [
-            //               Icon(Icons.info),
-            //               Padding(
-            //                 padding: const EdgeInsets.all(16.0),
-            //                 child: Text('active.'),
-            //               )
-            //             ];
-            //             break;
-            //           case ConnectionState.done:
-            //             // /data/user/0/com.example.refresh/app_flutter
-            //             var data = snapshot.data;
-            //             debugPrint('data: $data');
-            //             children = [];
-            //             Directory(data).listSync().forEach((element) {
-            //               children.add(Padding(
-            //                 padding: const EdgeInsets.all(16.0),
-            //                 child: Text('$element'),
-            //               ));
-            //               children.add(Divider());
-            //             });
-
-            //             break;
-            //         }
-            //       }
-
-            //       return Column(
-            //         mainAxisAlignment: MainAxisAlignment.center,
-            //         crossAxisAlignment: CrossAxisAlignment.center,
-            //         children: children,
-            //       );
-            //     },
-            //   ),
-            // ),
-            SizedBox(
-              child: Container(
-                height: 16.0,
-                color: Colors.amberAccent.shade100,
+              SizedBox(
+                child: Container(
+                  height: 16.0,
+                  color: Colors.amberAccent.shade100,
+                ),
               ),
-            ),
-            SingleChildScrollView(
-              child: StreamBuilder(
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: FlatButton(
+                  color: Colors.amberAccent.shade200,
+                  onPressed: () async {
+                    debugPrint('delete');
+                    Utils()._deleteFile();
+                  },
+                  child: Text('delete json file'),
+                ),
+              ),
+              SizedBox(
+                child: Container(
+                  height: 16.0,
+                  color: Colors.amberAccent.shade100,
+                ),
+              ),
+              StreamBuilder(
+                stream: _paths,
+                builder:
+                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  List<Widget> children;
+
+                  if (snapshot.hasError) {
+                    return Text('error');
+                  } else {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.none:
+                        children = [
+                          Icon(Icons.error),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text('error.'),
+                          )
+                        ];
+                        break;
+                      case ConnectionState.waiting:
+                        children = [
+                          SizedBox(
+                            child: const CircularProgressIndicator(),
+                            width: 60,
+                            height: 60,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text('waiting.'),
+                          )
+                        ];
+                        break;
+                      case ConnectionState.active:
+                        children = [
+                          Icon(Icons.info),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text('active.'),
+                          )
+                        ];
+                        break;
+                      case ConnectionState.done:
+                        // /data/user/0/com.example.refresh/app_flutter
+                        var data = snapshot.data;
+                        debugPrint('data: $data');
+                        children = [];
+                        Directory(data).listSync().forEach((element) {
+                          children.add(Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text('$element'),
+                          ));
+                          children.add(Divider());
+                        });
+
+                        break;
+                    }
+                  }
+
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: children,
+                  );
+                },
+              ),
+              SizedBox(
+                child: Container(
+                  height: 16.0,
+                  color: Colors.amberAccent.shade100,
+                ),
+              ),
+              StreamBuilder(
                 stream: _data,
                 builder:
                     (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -259,7 +260,10 @@ class _HomeState extends State<Home> {
                         // /data/user/0/com.example.refresh/app_flutter
                         var data = snapshot.data;
                         debugPrint('done: $data');
-
+                        children.add(Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text('done: $data'),
+                        ));
                         break;
                     }
                   }
@@ -271,8 +275,37 @@ class _HomeState extends State<Home> {
                   );
                 },
               ),
-            ),
-          ],
+              SizedBox(
+                child: Container(
+                  height: 16.0,
+                  color: Colors.amberAccent.shade100,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: FlatButton(
+                  color: Colors.amberAccent.shade200,
+                  onPressed: () {
+                    debugPrint('read json');
+                    var utils = Utils();
+                    Future<File> file = utils._getFile;
+                    file.then((value) {
+                      value.readAsString().then((value) {
+                        setState(() {
+                          _jsonContent = value;
+                        });
+                      });
+                    });
+                  },
+                  child: Text('read json'),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text('$_jsonContent'),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -304,11 +337,10 @@ class Utils {
     return file.writeAsString('$json');
   }
 
-  _deleteFile() async {
-    String directory = await _getDir;
-    File jayson = File('$directory/data.json');
-    jayson.exists().then((_) => jayson.delete(recursive: false));
-  }
+  _deleteFile() async =>
+      _getFile.then((value) => value.exists().then((fileExists) => fileExists
+          ? value.delete(recursive: false)
+          : debugPrint('file does not exists.')));
 
   Stream<String> _data() {
     Timer timer;
