@@ -1,3 +1,13 @@
+# flutter 
+
+* flutter is open source
+* it compiles to truly native apps
+* _Fuchsia_'s user interface and apps are written with Flutter
+* Everything Is Widgets
+* they’re the building blocks of every Flutter app
+* google mission is: To build a better way to develop for mobile
+    * better create then android/kotlin, ios/swift, html/js
+* only Flutter (not React Native / Xamarin) has an option to create a web application in addition to the iOS and Android apps
 
 # flutter: linux
 * get SDK: `git clone https://github.com/flutter/flutter.git flutter`
