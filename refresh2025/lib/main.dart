@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'weather_page.dart';
+import 'game_page.dart';
 import 'programminglang_page.dart';
 
 void main() {
@@ -72,6 +73,25 @@ class MainScreen extends StatelessWidget {
               },
               child: const Text(
                 'Weather',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: 20), // Add more space between buttons
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(
+                  MediaQuery.of(context).size.width * 0.8,
+                  100,
+                ), // Double the size
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const GamePage()),
+                );
+              },
+              child: const Text(
+                'Game',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
