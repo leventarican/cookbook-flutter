@@ -6,6 +6,9 @@
 flutter run
 ```
 
+# vipe-coding
+* code was mostly generated using: firebase studio, windsurf
+
 # setup
 * get flutter sdk
 * extract tar-ball 
